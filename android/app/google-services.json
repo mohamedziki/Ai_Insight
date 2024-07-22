@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "392904614421",
+    "project_id": "climatechangenews-fa2c6",
+    "storage_bucket": "climatechangenews-fa2c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392904614421:android:767a7a2b43b8c16ecc241c",
+        "android_client_info": {
+          "package_name": "com.climate.insight.ai.climate_insight_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlGev9e9tzvDRXcg7N4d6xuzrtDngbKI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

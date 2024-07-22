@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "climatechangenews-fa2c6",
+    "climateChange": "climatechangenews-fa2c6"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

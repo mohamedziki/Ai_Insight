@@ -1,0 +1,45 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "climatechangenews-fa2c6",
+          "appId": "1:392904614421:android:767a7a2b43b8c16ecc241c",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "climatechangenews-fa2c6",
+          "configurations": {
+            "android": "1:392904614421:android:767a7a2b43b8c16ecc241c",
+            "ios": "1:392904614421:ios:3c35d1dd12d14804cc241c",
+            "macos": "1:392904614421:ios:3c35d1dd12d14804cc241c",
+            "web": "1:392904614421:web:1006c0bd3106f769cc241c",
+            "windows": "1:392904614421:web:901fc744953fe1ddcc241c"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}
