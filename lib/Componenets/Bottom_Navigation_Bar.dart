@@ -1,6 +1,7 @@
-import 'package:climate_insight_ai/discover_screen.dart';
+import 'package:climate_insight_ai/pages/discover_screen.dart';
+import 'package:climate_insight_ai/pages/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import '../pages/home_screen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({required this.index});
@@ -34,11 +35,10 @@ class _NavBarState extends State<NavBar> {
           ),
           icon: IconButton(
             onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HomeScreen())),
-            icon: const Icon(Icons.home_outlined, color: Colors.white,
+                context, MaterialPageRoute(builder: (context) => HomeScreen())),
+            icon: const Icon(
+              Icons.home_outlined,
+              color: Colors.white,
             ),
           ),
           label: 'Home',
@@ -49,11 +49,8 @@ class _NavBarState extends State<NavBar> {
             size: 27.0,
           ),
           icon: IconButton(
-            onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        DiscoverScreen())),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DiscoverScreen())),
             icon: const Icon(
               Icons.search_outlined,
               color: Colors.white,
@@ -63,14 +60,18 @@ class _NavBarState extends State<NavBar> {
         ),
         NavigationDestination(
           selectedIcon: const Icon(
-            Icons.person,
+            Icons.settings,
             size: 27.0,
           ),
           icon: IconButton(
-            onPressed: () => {Navigator.pushNamed(context, 'profile')},
-            icon: const Icon(Icons.person_outline,color: Colors.white,),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen())),
+            icon: const Icon(
+              Icons.settings_outlined,
+              color: Colors.white,
+            ),
           ),
-          label: 'Profile',
+          label: 'Settings',
         ),
       ],
     );

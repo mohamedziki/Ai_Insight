@@ -1,55 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'firebase_options.dart';
-import 'home_screen.dart';
- import 'models/fireStoreServices.dart';
- import 'package:climate_insight_ai/models/Provider.dart';
+import 'Componenets/OnBoarding.dart';
+import 'package:climate_insight_ai/models/firebase_options.dart';
+import 'package:climate_insight_ai/pages/home_screen.dart';
+import 'models/fireStoreServices.dart';
+import 'package:climate_insight_ai/models/Provider.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.playIntegrity,
+  );
 
-void main() async{
-   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp(
-     options: DefaultFirebaseOptions.currentPlatform,
-   );
+  bool showOnboarding = await _shouldShowOnboarding();
 
-   await FirebaseAppCheck.instance.activate(
-     androidProvider: AndroidProvider.playIntegrity,
-   );
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ArticlesProviderAi(firestoreService: FirestoreService())),
+        ChangeNotifierProvider(
+            create: (_) =>
+                ArticlesProviderAi(firestoreService: FirestoreService())),
       ],
-      child: const MyApp(),
+      child: MyApp(showOnboarding: showOnboarding),
     ),
   );
-
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
+Future<bool> _shouldShowOnboarding() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool seen = prefs.getBool('seenOnboarding') ?? false;
+  return !seen;
 }
 
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
+  final bool showOnboarding; // Add this property
+  const MyApp({Key? key, required this.showOnboarding}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
+      theme: ThemeData(
         navigationBarTheme: const NavigationBarThemeData(
-        height: 80.0,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),),
-    ),),
+          height: 80.0,
+          labelTextStyle: MaterialStatePropertyAll(
+            TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
       title: 'Flutter Demo',
-      home: HomeScreen(),
-
+      home: showOnboarding ? OnboardingScreen() : HomeScreen(),
     );
   }
 }

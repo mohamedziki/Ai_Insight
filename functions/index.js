@@ -7,7 +7,7 @@ admin.initializeApp();
 const genAI = new GoogleGenerativeAI("AIzaSyACk5PRdjpd3t7SWkuQ2lgVOp25wulGdZ0");
 
 exports.fetchUsArticles = functions.pubsub
-  .schedule('every 6 hours')
+  .schedule('every 20 hours')
   .onRun(async (context) => {
     console.log('Function started');
     const keywords = [
@@ -79,7 +79,7 @@ exports.fetchUsArticles = functions.pubsub
 exports.analyzeUsNews = functions.runWith({
   timeoutSeconds: 540,
   memory: '1GB'
-}).pubsub.schedule("every 6 hours").onRun(async (context) => {
+}).pubsub.schedule("every 21 hours").onRun(async (context) => {
   const db = admin.firestore();
   const collections = [
     "Us_Climate_Change",

@@ -1,9 +1,9 @@
-import 'package:climate_insight_ai/home_screen.dart';
+import 'package:climate_insight_ai/pages/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:climate_insight_ai/Bottom_Navigation_Bar.dart';
+import 'package:climate_insight_ai/Componenets/Bottom_Navigation_Bar.dart';
 import 'package:provider/provider.dart';
-import 'Image_Container.dart';
-import 'models/Provider.dart';
+import '../Componenets/Image_Container.dart';
+import '../models/Provider.dart';
 
 class DiscoverScreen extends StatefulWidget {
   @override
@@ -18,19 +18,27 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       backgroundColor: Colors.black,
         appBar: AppBar(
           centerTitle: true,
-          leading: IconButton(
-              iconSize: 30,
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back)),
           backgroundColor: Colors.transparent,
           elevation: 3,
           automaticallyImplyLeading: false,
-          title: Text(
-            'Categories',
-            style: TextStyle(
-              fontSize: 35,
-              fontFamily: 'Playball',
-              fontWeight: FontWeight.bold,
+          title: ShaderMask(
+            blendMode: BlendMode.srcIn,
+            shaderCallback: (bounds) =>
+                const LinearGradient(
+                  colors: [
+                    Color(0xFFfcb0f3), // Lighter blue
+                    Color(0xFF3d05dd),
+                    // Light Purple
+                    // Pinkish
+                  ],
+                ).createShader(Rect.fromLTWH(
+                    0, 0, bounds.width, bounds.height)),
+            child: const Text(
+              "Categories",
+              maxLines: 2,
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ),

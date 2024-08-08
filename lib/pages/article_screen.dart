@@ -1,12 +1,12 @@
 import 'dart:ui';
-import 'package:climate_insight_ai/Gemini_AI_Insight.dart';
+import 'package:climate_insight_ai/Componenets/Gemini_AI_Insight.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:core';
 import 'package:intl/intl.dart'; // For date formatting
 import 'dart:io' show Platform;
-import 'CustomTag.dart';
-import 'models/Firestore_Model.dart';
+import '../Componenets/CustomTag.dart';
+import '../models/Firestore_Model.dart';
 
 class ArticleScreen extends StatefulWidget {
   final Article article;
@@ -60,7 +60,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 child: Container(
                   padding: EdgeInsets.only(),
                   decoration: BoxDecoration(
-                      color: Color(0xFF12141E),
+                      color: Colors.black,
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(30))),
                   child: Text(
@@ -130,7 +130,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                         colors: [
-                          // Adjust colors for desired shading
                           Colors.black.withOpacity(1),
                           Colors.black.withOpacity(0.7),
                           Colors.transparent,
@@ -173,16 +172,15 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         blendMode: BlendMode.srcIn,
                         shaderCallback: (bounds) => const LinearGradient(
                           colors: [
-                            Color(0xFF4E54C8), // Blueish
-                            Color(0xFF8F94FB), // Light Purple
-                            Color(0xFFDA627D), // Pinkish
+                            Color(0xFFfcb0f3),
+                            Color(0xFF3d05dd),
                           ],
                         ).createShader(Rect.fromLTWH(
                             0, 0, bounds.width, bounds.height)),
                         child: const Text(
                           'Gemini Ai Insight',
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
+                              fontSize: 26, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -193,39 +191,37 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       const EdgeInsets.only(top: 15,left: 10, right: 10, bottom: 10),
                   child: Container(
                     padding: const EdgeInsets.all(
-                        1.5), // Adjust border thickness here
+                        0.8),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                         colors: [
-                          // Adjust colors for desired shading
-                          Color(0xFF66C2FF), // Lighter blue
-                          Color(0xFF337AFF),
+                          Color(0xFFfcb0f3), // Lighter blue
+                          Color(0xFF3d05dd),
                         ],
                       ),
-                      borderRadius: BorderRadius.circular(20.0),
+
                     ),
                     child: Container(
                       // Inner container for the main button
                       decoration: BoxDecoration(
                         color: const Color(0xFF0F152B),
-                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: myCard(
                           surfaceTintColor: Color(0xFF0F152B),
                           child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Summary',style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 24,
                             height: 1.4,
-                            fontFamily: "DMSerifDisplay",
+                            fontFamily: "OpenSans",
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),),
-                          SizedBox(height: 8,),
+                          SizedBox(height: 4,),
                           Text(
                             "${widget.article.summary}",
                             style: const TextStyle(
@@ -235,115 +231,47 @@ class _ArticleScreenState extends State<ArticleScreen> {
                               fontWeight: FontWeight.w500,
                               color: Color(0xFF939DB6),
                             ),
-                            textAlign: TextAlign.center  ),
+                            textAlign: TextAlign.start ),
+                          SizedBox(height: 5,),
+                          Text('Consequenses',style: TextStyle(
+                            fontSize: 24,
+                            fontFamily: "OpenSans",
+                            height: 1.4,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),),
+                          SizedBox(height: 4,),
+                          Text(
+                              "${widget.article.consequences}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans",
+                                height: 1.4,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF939DB6),
+                              ),
+                              textAlign: TextAlign.start),
+                          SizedBox(height: 5,),
+                          Text('Benefits Of Actions',style: TextStyle(
+                            fontSize: 24,
+                            height: 1.4,
+                            fontFamily: "OpenSans",
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),),
+                          SizedBox(height: 4,),
+                          Text(
+                              "${widget.article.benefitsOfAction}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans",
+                                height: 1.4,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF939DB6),
+                              ),
+                              textAlign: TextAlign.start),
                         ],
                       )),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                  const EdgeInsets.only(top: 15,left: 10, right: 10, bottom: 10),
-                  child: Container(
-                    padding: const EdgeInsets.all(
-                        1.5), // Adjust border thickness here
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          // Adjust colors for desired shading
-                          Color(0xFF66C2FF), // Lighter blue
-                          Color(0xFF337AFF),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child: Container(
-                      // Inner container for the main button
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF0F152B),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: myCard(
-                          surfaceTintColor: Color(0xFF0F152B),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text('Consequenses',style: TextStyle(
-                                fontSize: 30,
-                                fontFamily: "DMSerifDisplay",
-                                height: 1.4,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),),
-                              SizedBox(height: 8,),
-                              Text(
-                                  "${widget.article.consequences}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: "OpenSans",
-                                    height: 1.4,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF939DB6),
-                                  ),
-                                  textAlign: TextAlign.center  ),
-                            ],
-                          )),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                  const EdgeInsets.only(top: 15,left: 10, right: 10, bottom: 10),
-                  child: Container(
-                    padding: const EdgeInsets.all(
-                        1.5), // Adjust border thickness here
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          // Adjust colors for desired shading
-                          Color(0xFF66C2FF), // Lighter blue
-                          Color(0xFF337AFF),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child: Container(
-                      // Inner container for the main button
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF0F152B),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: myCard(
-                          surfaceTintColor: Color(0xFF0F152B),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text('Benefits Of Actions',style: TextStyle(
-                                fontSize: 30,
-                                height: 1.4,
-                                fontFamily: "DMSerifDisplay",
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),),
-                              SizedBox(height: 8,),
-                              Text(
-                                  "${widget.article.benefitsOfAction}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: "OpenSans",
-                                    height: 1.4,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF939DB6),
-                                  ),
-                                  textAlign: TextAlign.center  ),
-                            ],
-                          )),
                     ),
                   ),
                 ),
@@ -356,21 +284,12 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(
-                              1.0), // Adjust border thickness here
+                              0.7),
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                // Adjust colors for desired shading
-                                Color(0xFF66C2FF), // Lighter blue
-                                Color(0xFF337AFF),
-                              ],
-                            ),
+                            color: Colors.grey,
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           child: Container(
-                            // Inner container for the main button
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 10.0),
                             decoration: BoxDecoration(

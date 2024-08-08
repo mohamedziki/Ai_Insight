@@ -1,12 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:climate_insight_ai/article_screen.dart';
+import 'package:climate_insight_ai/pages/article_screen.dart';
 import 'package:climate_insight_ai/models/Provider.dart';
-import 'package:climate_insight_ai/skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'home_screen.dart';
-import 'models/Firestore_Model.dart';
+import '../models/Firestore_Model.dart';
 
 class BreakingNews extends StatefulWidget {
   @override
@@ -17,9 +16,11 @@ class _BreakingNewsState extends State<BreakingNews> {
   final CarouselController _carouselController = CarouselController();
   @override
   Widget build(BuildContext context) {
-    final articlesProvider = Provider.of<ArticlesProviderAi>(context, listen: false);
+    final articlesProvider =
+        Provider.of<ArticlesProviderAi>(context, listen: false);
     return StreamBuilder<List<Article>>(
-      stream: articlesProvider.getArticlesStream('Us_Climate_Change',articlesProvider.keyword ),
+      stream: articlesProvider.getArticlesStream(
+          'Us_Climate_Change', articlesProvider.keyword),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return _buildLoadingList();
@@ -28,7 +29,6 @@ class _BreakingNewsState extends State<BreakingNews> {
         } else if (snapshot.hasData) {
           final articles = snapshot.data!;
           if (articles.isNotEmpty && articlesProvider.selectedArticle == null) {
-            // Use a post-frame callback to ensure the widget tree is built
             WidgetsBinding.instance.addPostFrameCallback((_) {
               articlesProvider.updateSelectedArticle(articles[0]);
             });
@@ -51,11 +51,11 @@ class _BreakingNewsState extends State<BreakingNews> {
         itemCount: articles.length,
         itemBuilder: (context, index, realIndex) {
           if (articles.isEmpty) {
-            return _buildLoadingList(); // Show skeleton loader
+            return _buildLoadingList();
           } else {
             Article article = articles[index];
             return GestureDetector(
-              onTap:  () => (),
+              onTap: () => (),
               child: _buildArticleItem(context, article),
             );
           }
@@ -71,14 +71,12 @@ class _BreakingNewsState extends State<BreakingNews> {
           viewportFraction: 0.85,
           enableInfiniteScroll: true,
           autoPlay: false,
-          autoPlayInterval: const Duration(seconds: 2),
+          autoPlayInterval: const Duration(seconds: 3),
           autoPlayAnimationDuration: const Duration(milliseconds: 800),
           autoPlayCurve: Curves.fastOutSlowIn,
           scrollDirection: Axis.horizontal,
         ));
   }
-
-
 
   Widget _buildArticleItem(BuildContext context, Article article) {
     return Padding(
@@ -93,10 +91,9 @@ class _BreakingNewsState extends State<BreakingNews> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-
           ),
           child: HottestNews(
-            mostAffectedCountry : article.mostAffectedCountry!,
+            mostAffectedCountry: article.mostAffectedCountry!,
             urgency: article.urgency!,
             responsibility: article.responsibility!,
             region: article.mostAffectedCountry!,
@@ -111,6 +108,7 @@ class _BreakingNewsState extends State<BreakingNews> {
       ),
     );
   }
+
   Widget _buildLoadingList() {
     return CarouselSlider.builder(
       itemCount: 2,

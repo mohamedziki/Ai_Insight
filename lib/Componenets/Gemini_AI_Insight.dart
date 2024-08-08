@@ -1,13 +1,13 @@
-import 'package:climate_insight_ai/article_screen.dart';
+import 'package:climate_insight_ai/pages/article_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'CustomTag.dart';
-import 'home_screen.dart';
-import 'models/Firestore_Model.dart';
-import 'models/Provider.dart';
+import '../pages/home_screen.dart';
+import '../models/Firestore_Model.dart';
+import '../models/Provider.dart';
+
 
 class ImpactAnalysis extends StatelessWidget {
-  // ... (Your existing variable declarations) ...
   final Article article;
   final String impact;
   final String degreeOfImpact;
@@ -40,7 +40,6 @@ class ImpactAnalysis extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // "Why does this matter?" section
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -48,13 +47,13 @@ class ImpactAnalysis extends StatelessWidget {
                   blendMode: BlendMode.srcIn,
                   shaderCallback: (bounds) => const LinearGradient(
                     colors: [
-                      Color(0xFF66C2FF), // Lighter blue
-                      Color(0xFF337AFF), // Slightly darker blue
+                      Color(0xFFfcb0f3),
+                      Color(0xFF3d05dd),
                     ],
                   ).createShader(
                       Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
                   child: Text(
-                    'Why does this matter ?',
+                    '$degreeOfImpact $impact Impact',
                     style: TextStyle(
                       fontSize: 17,
                       height: 1.4,
@@ -81,7 +80,7 @@ class ImpactAnalysis extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildSectionHeader('Why this urgency ?'),
+                _buildSectionHeader('$urgency'),
                 getUrgencyIcon("$urgency"),
               ],
             ),
@@ -98,7 +97,7 @@ class ImpactAnalysis extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            _buildSectionHeader('Who needs to step up ? $responsibility'),
+            _buildSectionHeader('$responsibility responsibility '),
             Text(
               responsibilityDetail,
               style: const TextStyle(
@@ -115,15 +114,13 @@ class ImpactAnalysis extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(
-                        1.0), // Adjust border thickness here
+                    padding: const EdgeInsets.all(1.0),
                     decoration: BoxDecoration(
                       color: Colors.white
-                          .withOpacity(0.1), // Semi-transparent white border
+                          .withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: Container(
-                      // Inner container for the main button
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 10.0),
                       decoration: BoxDecoration(
@@ -170,14 +167,13 @@ class ImpactAnalysis extends StatelessWidget {
     );
   }
 
-  // Helper function for section headers (cleaner code)
   Widget _buildSectionHeader(String text) {
     return ShaderMask(
       blendMode: BlendMode.srcIn,
       shaderCallback: (bounds) => const LinearGradient(
         colors: [
-          Color(0xFF66C2FF), // Lighter blue
-          Color(0xFF337AFF), // Slightly darker blue
+          Color(0xFFfcb0f3),
+          Color(0xFF3d05dd),
         ],
       ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
       child: Text(
@@ -202,12 +198,12 @@ class myCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      // Added a Card widget for a clean look
+
       elevation: 4,
       child: child,
       shadowColor: Colors.black,
-      surfaceTintColor: surfaceTintColor , //Color(0xFF12141E)
-      color: surfaceTintColor,//Color(0xFF12141E)
+      surfaceTintColor: surfaceTintColor ,
+      color: surfaceTintColor,
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),

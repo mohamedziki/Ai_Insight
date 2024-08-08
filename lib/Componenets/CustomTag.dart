@@ -11,8 +11,8 @@ class CustomTag extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF66C2FF),
-            Color(0xFF337AFF),
+            Color(0xFFfcb0f3), // Lighter blue
+            Color(0xFF3d05dd),
           ],
         ),
         borderRadius: BorderRadius.circular(20.0),

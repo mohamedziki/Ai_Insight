@@ -3,15 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:climate_insight_ai/models/Firestore_Model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'fireStoreServices.dart'; // For persisting fetched IDs
+import 'fireStoreServices.dart';
 
 class ArticlesProviderAi extends ChangeNotifier {
   final FirestoreService firestoreService;
   List<Article> _articles = [];
   DocumentSnapshot? _lastDocument;
-  Set<String> _fetchedArticleIds = {};  // Using a Set for efficient duplicate checks
-  bool _isFetching = false; // Track fetching state
-  bool _hasMoreArticles = true; // Flag for end of collection
+  Set<String> _fetchedArticleIds = {};
+  bool _isFetching = false;
+  bool _hasMoreArticles = true;
   Article? _selectedArticle;
   String _keyword = 'Climate Change' ;
 
@@ -28,32 +28,7 @@ class ArticlesProviderAi extends ChangeNotifier {
    _keyword = categoryName ;
   }
 
-  /* Future<List<Article>> getArticles(String collectionName, int documentLimit) async {
-    print('Fetching articles from $collectionName');
 
-    Query query =  FirebaseFirestore.instance
-        .collection(collectionName)
-        //.where('keyword', isEqualTo: keyword)
-        .orderBy('publishedAt', descending: true)
-        .limit(documentLimit);
-
-
-    // If we have a last document, start after it
-    if (_lastDocument != null) {
-      print('Starting after last document');
-      query = query.startAfterDocument(_lastDocument!);
-    }
-
-    QuerySnapshot querySnapshot = await query.get();
-    _lastDocument = querySnapshot.docs.isEmpty ? null : querySnapshot.docs.last;
-    print('heere$_lastDocument');
-
-    print('Fetched ${querySnapshot.docs.length} articles');
-
-    return querySnapshot.docs
-        .map((doc) => Article.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
-  }*/
 
   Stream<List<Article>> getArticlesStream(String collectionName,String keyword) {
     return FirebaseFirestore.instance

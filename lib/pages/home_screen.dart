@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:infinite_listview/infinite_listview.dart';
 import 'package:provider/provider.dart';
-import 'Bottom_Navigation_Bar.dart';
-import 'CustomTag.dart';
-import 'Gemini_AI_Insight.dart';
-import 'Image_Container.dart';
+import 'package:showcaseview/showcaseview.dart';
+import '../Componenets/Bottom_Navigation_Bar.dart';
+import '../Componenets/CustomTag.dart';
+import '../Componenets/Gemini_AI_Insight.dart';
+import '../Componenets/Image_Container.dart';
 import 'first_screen.dart';
-import 'models/Firestore_Model.dart';
-import 'models/Provider.dart';
+import '../models/Firestore_Model.dart';
+import '../models/Provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,13 +18,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   bool isloadMore = false;
   final InfiniteScrollController _infiniteController = InfiniteScrollController(
     initialScrollOffset: 0.0,
   );
   ScrollController _scrollController = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding:
-                        const EdgeInsets.only(left: 15,bottom: 10,right: 10),
+                        padding: const EdgeInsets.only(
+                            left: 15, bottom: 10, right: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -58,168 +57,28 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ShaderMask(
                                 // Apply gradient here
                                 blendMode: BlendMode.srcIn,
-                                shaderCallback: (bounds) => const LinearGradient(
+                                shaderCallback: (bounds) =>
+                                    const LinearGradient(
                                   colors: [
-                                    Color(0xFF4E54C8), // Blueish
-                                    Color(0xFF8F94FB), // Light Purple
-                                    Color(0xFFDA627D), // Pinkish
+                                    Color(0xFFfcb0f3), // Lighter blue
+                                    Color(0xFF3d05dd),
+                                    // Light Purple
+                                     // Pinkish
                                   ],
                                 ).createShader(Rect.fromLTWH(
-                                    0, 0, bounds.width, bounds.height)),
+                                        0, 0, bounds.width, bounds.height)),
                                 child: const Text(
                                   "Let's Save Our Planet Together",
                                   maxLines: 2,
                                   style: TextStyle(
-                                      fontSize: 30, fontWeight: FontWeight.bold),
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      /*Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                categoryName = 'Climate Change';
-                              });
-                            },
-                            child: CustomTag(
-                                backgroundColor: Colors.blueAccent,
-                                children: [
-                                  Text(
-                                    'Climate Change',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontSize: 13.0,
-                                          fontFamily: 'OpenSans',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                        ),
-                                  ),
-                                ]),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                categoryName = 'Electric Vehicles';
-                              });
-                            },
-                            child: CustomTag(
-                                backgroundColor: Colors.blueAccent,
-                                children: [
-                                  Text(
-                                    "Electric Vehicles",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontSize: 13.0,
-                                          fontFamily: 'OpenSans',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                        ),
-                                  ),
-                                ]),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                categoryName = 'Global Warming';
-                              });
-                            },
-                            child: CustomTag(
-                                backgroundColor: Colors.blueAccent,
-                                children: [
-                                  Text(
-                                    "Global Warming",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontSize: 13.0,
-                                          fontFamily: 'OpenSans',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                        ),
-                                  ),
-                                ]),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                categoryName = 'Greenhouse Gases';
-                              });
-                            },
-                            child: CustomTag(
-                                backgroundColor: Colors.blueAccent,
-                                children: [
-                                  Text(
-                                    "Global Warming",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                      fontSize: 13.0,
-                                      fontFamily: 'OpenSans',
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                categoryName = 'Carbon Emissions';
-                              });
-                            },
-                            child: CustomTag(
-                                backgroundColor: Colors.blueAccent,
-                                children: [
-                                  Text(
-                                    "Global Warming",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                      fontSize: 13.0,
-                                      fontFamily: 'OpenSans',
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                categoryName = 'Sea Level Rise';
-                              });
-                            },
-                            child: CustomTag(
-                                backgroundColor: Colors.blueAccent,
-                                children: [
-                                  Text(
-                                    "Global Warming",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                      fontSize: 13.0,
-                                      fontFamily: 'OpenSans',
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ],
-                      ),*/
                       BreakingNews(),
                       Padding(
                         padding:
@@ -232,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               blendMode: BlendMode.srcIn,
                               shaderCallback: (bounds) => const LinearGradient(
                                 colors: [
-                                  Color(0xFF4E54C8), // Blueish
-                                  Color(0xFF8F94FB), // Light Purple
-                                  Color(0xFFDA627D), // Pinkish
+                                  Color(0xFFfcb0f3), // Lighter blue
+                                  Color(0xFF3d05dd),  // Light Purple
+                                  // Pinkish
                                 ],
                               ).createShader(Rect.fromLTWH(
                                   0, 0, bounds.width, bounds.height)),
@@ -295,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HottestNews extends StatelessWidget {
+class HottestNews extends StatefulWidget {
   HottestNews({
     required this.image,
     required this.title,
@@ -319,12 +178,18 @@ class HottestNews extends StatelessWidget {
   late final String? degreeOfImpact;
   late final String? region;
   late final String? mostAffectedCountry;
+
+  @override
+  State<HottestNews> createState() => _HottestNewsState();
+}
+class _HottestNewsState extends State<HottestNews> {
+
   @override
   Widget build(BuildContext context) {
     return ImageContainer(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.30,
-      image: image,
+      image: widget.image,
       padding: const EdgeInsets.only(
         top: 17.0,
       ),
@@ -337,9 +202,9 @@ class HottestNews extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomTag( children: [
+                CustomTag(children: [
                   Text(
-                    source,
+                    widget.source,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 13.0,
                           fontFamily: 'OpenSans',
@@ -382,7 +247,7 @@ class HottestNews extends StatelessWidget {
                       //  Icon(Icons.flag,color: Colors.blueAccent,size: 20,),
                       Expanded(
                         child: Text(
-                          "$responsibility responsibility",
+                          "${widget.responsibility} responsibility",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
@@ -399,7 +264,7 @@ class HottestNews extends StatelessWidget {
                     height: 9,
                   ),
                   Text(
-                    title,
+                    widget.title,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontSize: 17,
                           wordSpacing: 2,
@@ -416,9 +281,9 @@ class HottestNews extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       getImpactIcon(
-                          "$degreeOfImpact", getImpactColor("$impact")),
+                          "${widget.degreeOfImpact}", getImpactColor("${widget.impact}")),
                       Text(
-                        "$mostAffectedCountry",
+                        "${widget.mostAffectedCountry}",
                         style: TextStyle(
                           fontSize: 12,
                           wordSpacing: 2,
@@ -428,7 +293,7 @@ class HottestNews extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      getUrgencyIcon("$urgency")
+                      getUrgencyIcon("${widget.urgency}")
                     ],
                   ),
                 ],
@@ -522,4 +387,3 @@ String _calculateTimeAgoText(int differenceInSeconds, Article article) {
     return '${DateFormat('dd MMM').format(article.publishedAt)} ';
   }
 }
-
