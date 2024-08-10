@@ -6,7 +6,6 @@ import '../pages/home_screen.dart';
 import '../models/Firestore_Model.dart';
 import '../models/Provider.dart';
 
-
 class ImpactAnalysis extends StatelessWidget {
   final Article article;
   final String impact;
